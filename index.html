@@ -20,7 +20,7 @@
         <a class="navbar-brand text-info">High Scores</a>
       </button>
         
-      <div class="p-3">
+      <div class="p-3 ml-auto">
          <span class="timer"></span> 
       </div>
     </nav>
@@ -28,13 +28,18 @@
     <div class="p-5">
       <main class="container bg-white">
         <div class="row">
-          <div class="col-md-12 mt-4">
+          <div class="col-md-12 mt-4 center">
             
             <h1 class="text-center" id="header1">Coding Quiz</h1>
             <span class ="image rounded mx-auto d-block"></span>
             <hr>
           </div> 
-        
+        <div class="col-md-12 mt-4 center">
+          <p>
+            Time to test your Javascript knowledge! You have 90 seconds to finish the quiz, click start to begin!
+          </p>
+          <button class="btn button-primary text-info" type="button" onclick="setTime()">Start Quiz</button>
+        </div>
         </div>
       </main>
     </div> 
