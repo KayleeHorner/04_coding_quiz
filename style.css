@@ -8,8 +8,13 @@
    margin-right: auto;
 }
 
-button {
-   background-color: lightslategray;
-   color: #ffffff;
+#questions-div {
+   background-color: #ffffff;
+}
+
+#questions-div button {
+   color: #4AA0B5;
+   border: none;
+   border-radius: 2em;
 
 }
