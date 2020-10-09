@@ -16,14 +16,12 @@ function renderStatic() {
 renderStatic()
 
 // Start Quiz/Timer Button
-var startQuiz = document.querySelector(".start");
+var startQuiz = document.querySelector("#start");
 var timer = document.querySelector(".timer");
 var main = document.querySelector(".image");
-
-
 var secondsLeft = 90;
 
-function setTime() {
+startQuiz.addEventListener("click", function setTimer() { 
 
     var timerInterval = setInterval(function() {
         secondsLeft--;
@@ -35,9 +33,10 @@ function setTime() {
             sendMessage();
         } else codeQuiz();
   
-    }, 1000);
-}
+    }, 1000)
+})
 
+// Game Over Image Function
 function sendMessage() {
     timer.textContent = " ";
 
@@ -48,13 +47,13 @@ function sendMessage() {
 
 }
 
+// Take Welcome Image Away on Quiz Start
 function clearWelcome() {
     welcomeText.textContent = " ";
     startButton.remove();
 }
 
-// Test Questions
-function codeQuiz() {
+// Test Question
     var questions = [
         {   q: "What file extension do you use for Javascript files?",
             a: [".java", ".script", ".js"],
@@ -78,20 +77,32 @@ function codeQuiz() {
             }
       ];
 
-    var score = "0";
+    var score = 0;
+    var indexQ = 0;
     
-    for (var i = 0; i < questions.length; i++) {
-        // var correctAnswer
-        if ((correctAnswer === true && questions[i].correct)) {
-            score++;
+
+    function codeQuiz() {
+        var display = document.querySelector("#questions-div");
+        var createButton = document.createElement("button");
+        var questionHead = document.querySelector("#question-title")
+        display.innerHTML = "";
+        createButton.innerHTML = "";
+
+        // Go Through Questions
+        for (var i = 0; i < questions.length; i++) {
+            var questionContent = questions[indexQ].q;
+            var answerContent = questions[indexQ].a;
+            questionHead.textContent = questionContent;
         }
 
-    }
-}
-
-// put score in the local Storage
-// add input box for typing name/initials
-
+        answerContent.forEach(function (addChoices) {
+            var options = document.createElement("button");
+            options.textContent = addChoices;
+            display.appendChild(createButton);
+            createButton.appendChild(options);
+            options.addEventListener("click", (check));
+        }
+        
 
 // // High Score Page
 // var highScoreInput = document.querySelector("#");
