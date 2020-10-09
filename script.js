@@ -1,3 +1,31 @@
+// Test Question
+var questions = [
+    {q: "What file extension do you use for Javascript files?",
+     a: [".java", ".script", ".js"],
+     correct: ".js"
+    },
+    {q: "How do you define a variable?",
+     a: ["variable x", "var = x", "var x"],
+     correct: "var x"
+    },
+    {q: "What does the $ do in your script?",
+     a: ["Calls jQuery Syntax", "Calls a Function", "Converts Number to $0.00"],
+     correct: "Calls jQuery Syntax"
+    },
+    {q: "How do you create a prompt?",
+     a: ["confirmPrompt(' ')", "promptBox(' ')", "prompt(' ')"],
+     correct:"prompt(' ')",
+    },
+    {q: "What calls a function?",
+     a: ["function = (i)", "function()", "func()"],
+     correct:"function()",
+    }
+    ];
+   
+var score = 0;
+var indexQ = 0;
+var currentQ = questions[indexQ]; 
+
 // Add Welcome Text to Main Page
 var welcomeText = document.querySelector("#welcometext");
 var startButton = document.querySelector("#start");
@@ -31,10 +59,94 @@ startQuiz.addEventListener("click", function setTimer() {
         if(secondsLeft === 0) {
             clearTimeout(timerInterval);
             sendMessage();
-        } else codeQuiz();
+        } else {
+            renderCodeQuiz()
+        }
   
     }, 1000)
+
 })
+
+
+
+
+//Quiz
+function renderCodeQuiz() {
+    // Create Quiz Elements
+    var display = document.querySelector("#questions-div");
+    var createButton = document.createElement("button");
+    var questionHead = document.querySelector("#question-title")
+ 
+
+    display.innerHTML = " ";
+    createButton.innerHTML = " ";
+        
+
+     // Go Through Questions
+        for (var i = 0; i < questions.length; i++) {
+            var questionContent = questions[indexQ].q;
+            var answerContent = questions[indexQ].a;
+            var currentQ = questions[indexQ]; 
+
+            questionHead.textContent = questionContent;
+        }
+
+        answerContent.forEach(function (addChoices) {
+            var options = document.createElement("button");
+            options.textContent = addChoices;
+            display.appendChild(createButton);
+            createButton.appendChild(options);
+            options.addEventListener("click", function() {
+                
+        var correctAnswer = questions[indexQ].correct;
+        var el = event.target;
+        if (el.matches("button")) {
+                       
+        var div = document.createElement("div");
+        div.setAttribute("id", "div");
+            
+        if (el.textContent === correctAnswer ) {
+            score = score + 1;
+            console.log("score");
+            nextQ();
+        } else {
+            score = score  - 1;
+        nextQ();
+
+         }
+         }
+    })
+ })
+}
+var display = document.querySelector("#questions-div");
+    function nextQ() {
+    currentQ++
+    if ((questions.length - 1)==(currentQ)) {
+    quizComplete();
+    display.textContent = "You finished the quiz! Your score is " + score + "out of " + questions.length;
+    display.appendChild(div);
+    scoreInput();
+    
+    } else {
+        currentQ = currentQ + 1;
+    } 
+}
+
+function quizComplete() {
+    timer = " ";
+    questions.remove();
+}
+
+function scoreInput() {
+    var prompt = document.createElement("h1");
+    var createInputForm = document.createElement("form");
+
+    prompt.textContent = "Enter your name to save your score!"
+    createInputForm.setAttribute("type", "text");   
+
+}
+
+
 
 // Game Over Image Function
 function sendMessage() {
@@ -52,141 +164,3 @@ function clearWelcome() {
     welcomeText.textContent = " ";
     startButton.remove();
 }
-
-// Test Question
-    var questions = [
-        {   q: "What file extension do you use for Javascript files?",
-            a: [".java", ".script", ".js"],
-            correct: ".js"
-            },
-        {   q: "How do you define a variable?",
-            a: ["variable x", "var = x", "var x"],
-            correct: "var x"
-            },
-        {   q: "What does the $ do in your script?",
-            a: ["Calls jQuery Syntax", "Calls a Function", "Converts Number to $0.00"],
-            correct: "Calls jQuery Syntax"
-            },
-        {   q: "How do you create a prompt?",
-            a: ["confirmPrompt(' ')", "promptBox(' ')", "prompt(' ')"],
-            correct:"prompt(' ')",
-            },
-        {   q: "What calls a function?",
-            a: ["function = (i)", "function()", "func()"],
-            correct:"function()",
-            }
-      ];
-
-    var score = 0;
-    var indexQ = 0;
-    
-
-    function codeQuiz() {
-        var display = document.querySelector("#questions-div");
-        var createButton = document.createElement("button");
-        var questionHead = document.querySelector("#question-title")
-        display.innerHTML = "";
-        createButton.innerHTML = "";
-
-        // Go Through Questions
-        for (var i = 0; i < questions.length; i++) {
-            var questionContent = questions[indexQ].q;
-            var answerContent = questions[indexQ].a;
-            questionHead.textContent = questionContent;
-        }
-
-        answerContent.forEach(function (addChoices) {
-            var options = document.createElement("button");
-            options.textContent = addChoices;
-            display.appendChild(createButton);
-            createButton.appendChild(options);
-            options.addEventListener("click", (check));
-        }
-        
-
-// // High Score Page
-// var highScoreInput = document.querySelector("#");
-// var highScoreForm = document.querySelector("#");
-// var highScoreList = document.querySelector("#");
-// var highScoreSpan = document.querySelector("#");
-
-// var hsList = [];
-
-// init();
-
-// function renderTodos() {
-//   // Clear todoList element and update todoCountSpan
-//   highScoreList.innerHTML = "";
-//   highScoreSpan.textContent = hsList.length;
-
-//   // Render a new li for each todo
-//   for (var i = 0; i < hsList.length; i++) {
-//     var highScore = hsList[i];
-
-//     var li = document.createElement("li");
-//     li.textContent = highScore;
-//     li.setAttribute("data-index", i);
-
-//     var button = document.createElement("button");
-//     button.textContent = "Submit";
-
-//     li.appendChild(button);
-//     highScoreList.appendChild(li);
-//   }
-// }
-
-// function init() {
-//   // Get stored todos from localStorage
-//   // Parsing the JSON string to an object
-//   var storedTodos = JSON.parse(localStorage.getItem("todos"));
-
-//   // If todos were retrieved from localStorage, update the todos array to it
-//   if (storedTodos !== null) {
-//     todos = storedTodos;
-//   }
-
-//   // Render todos to the DOM
-//   renderTodos();
-// }
-
-// function storeTodos() {
-//   // Stringify and set "todos" key in localStorage to todos array
-//   localStorage.setItem("todos", JSON.stringify(todos));
-// }
-
-// // When form is submitted...
-// todoForm.addEventListener("submit", function(event) {
-//   event.preventDefault();
-
-//   var todoText = todoInput.value.trim();
-
-//   // Return from function early if submitted todoText is blank
-//   if (todoText === "") {
-//     return;
-//   }
-
-//   // Add new todoText to todos array, clear the input
-//   todos.push(todoText);
-//   todoInput.value = "";
-
-//   // Store updated todos in localStorage, re-render the list
-//   storeTodos();
-//   renderTodos();
-// });
-
-// // When a element inside of the todoList is clicked...
-// todoList.addEventListener("click", function(event) {
-//   var element = event.target;
-
-//   // If that element is a button...
-//   if (element.matches("button") === true) {
-//     // Get its data-index value and remove the todo element from the list
-//     var index = element.parentElement.getAttribute("data-index");
-//     todos.splice(index, 1);
-
-//     // Store updated todos in localStorage, re-render the list
-//     storeTodos();
-//     renderTodos();
-//   }
-// });
-
